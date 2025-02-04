@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andrea's Valentine</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: linear-gradient(45deg, #ff007f, #ff1493, #ff69b4);
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            position: relative;
+            text-align: center;
+            padding-top: 20%;
+            z-index: 1;
+        }
+
+        h1 {
+            color: white;
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            color: #ff007f;
+            animation: float 6s linear infinite;
+            opacity: 0;
+        }
+
+        .roses {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .rose {
+            position: absolute;
+            width: 50px;
+            animation: fall 8s linear infinite;
+            opacity: 0.7;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.5em;
+            background: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 20px;
+            transition: transform 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            background: #ffe6f2;
+        }
+
+        #message {
+            display: none;
+            color: white;
+            font-size: 2em;
+            margin-top: 20px;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+
+            30% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100vh);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hearts" id="hearts"></div>
+    <div class="roses" id="roses"></div>
+
+    <div class="container">
+        <h1>Andrea, Will You Be My Valentine? 💝</h1>
+        <p style="color: white; font-size: 1.2em;">You make every day feel like a fairy tale ✨</p>
+
+        <button onclick="showResponse(true)">YES! 💖</button>
+        <button onmouseover="moveNoButton()" onclick="showResponse(false)">No</button>
+
+        <div id="message"></div>
+    </div>
+
+    <script>
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            for (let i = 0; i < 50; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '💖';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+                heartsContainer.appendChild(heart);
+            }
+        }
+
+        function createRoses() {
+            const rosesContainer = document.getElementById('roses');
+            for (let i = 0; i < 20; i++) {
+                const rose = document.createElement('img');
+                rose.className = 'rose';
+                rose.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QkE1Q0FFQkE2Q0Y1MTFFNDlBM0FFQTJDRUIwQkE2NjUiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QkE1Q0FFQkI2Q0Y1MTFFNDlBM0FFQTJDRUIwQkE2NjUiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpCQTVDQUVCODZDRjUxMUU0OUEzQUVBMkNFQjBCQTY2NSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpCQTVDQUVCOTZDRjUxMUU0OUEzQUVBMkNFQjBCQTY2NSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PtXh438AAAGnSURBVHja7Jq9SgNBEIa3IhYWNj6Bja0PYKGltZ2Fj2BjqY2FjY0vIFj4BFYq2FhZWFhoYyGCghCJhZAfYhQj5pvdZDYcjnfJ3V6yyQcD2d3L7XyzM7N7m0RRlCqTUpLKpAohhBASnxB1+6Bpms3Yh5qmqQ2lHvKQhzy0V4hO3H6/3wV6wDnQcM7fAefABdCJ+6JjHvKQh/YGYYhT4BmYAVPgDZgDH8ASWALfwDtw5V5jHvKQh/YCYYhT4AmYAx/ALfAJfAFfwAKI3N8pcOteYx7ykIf2AmGII+AB+AZegSfgFlgBS+ANWABr4B64d68xD3nIQ3uBMMQR8Ah8AWvgHlgDS2AJfAILYAO8APfuNeYhD3loLxCGOAYmwDewAV6ADbAElsA3sAD+3GvMQx7y0F4gDHEKPAJz4B/wAPwAS2AJfAML4M+9xjzkIQ/tBcIQp8AD8Av8AXfAH7AElsA3sAD+3WvMQx7y0F4gDHEGPAO/wBq4A/6BJbAENsAS+AWegRf3GvOQhzy0FwhDnAPPwCewAm6BP2AJLIENsAT+gRfg1b3GPOQhD+0FwhAXwCvwA6yAG+APWAJLYAOsgA3wBry715iHPOShvUAY4gJ4A1bAGrgGfoElsATWwBr4Bt6Bd/ca85CHPLQXCENcAh/AGlgC18AvsASWwAZYAt/AB/DpXmMe8pCH9gJhiCvgC1gDS+Aa+AWWwBLYACvgB/h0rzEPechDe4EwxDXwDayBJXAN/AJLYAlsXfQNfLrXmIc85KG9QBjiBvgC1sASuAb+gSWwBDbACtgA7+415iEPeWgvEIa4Bb6BNbAEroF/YAksgQ2wAjbAu3uNeWg3if4FGACVKvZkg4Sx1AAAAABJRU5ErkJggg==';
+                rose.style.left = Math.random() * 100 + '%';
+                rose.style.animationDelay = Math.random() * 5 + 's';
+                rosesContainer.appendChild(rose);
+            }
+        }
+
+        function showResponse(yes) {
+            const message = document.getElementById('message');
+            if (yes) {
+                message.innerHTML = "Yay! 💖 You've made me the happiest person! 🌹<br>I love you more than words can say!";
+                document.body.style.background = '#ff1493';
+            } else {
+                message.innerHTML = "Try again 😉 You know you want to say Yes! 💘";
+            }
+            message.style.display = 'block';
+        }
+
+        function moveNoButton() {
+            const noButton = document.querySelector('button:nth-child(2)');
+            noButton.style.position = 'absolute';
+            noButton.style.left = Math.random() * 80 + '%';
+            noButton.style.top = Math.random() * 80 + '%';
+        }
+
+        // Initialize animations
+        createHearts();
+        createRoses();
+    </script>
+</body>
+
+</html>
