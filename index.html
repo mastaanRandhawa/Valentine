@@ -2,77 +2,44 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Andrea's Valentine</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Andrea's Valentine Surprise</title>
     <style>
+        /* ------------------------------
+       BASIC PAGE STYLES
+    --------------------------------*/
         body {
             margin: 0;
             height: 100vh;
+            /* Romantic background gradient */
             background: linear-gradient(45deg, #ff007f, #ff1493, #ff69b4);
             overflow: hidden;
             font-family: 'Arial', sans-serif;
+            /* Heart cursor */
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24'><path fill='%23ff0066' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/></svg>"), auto;
         }
 
         .container {
             position: relative;
             text-align: center;
-            padding-top: 20%;
+            padding-top: 10%;
             z-index: 1;
+            max-width: 90%;
+            margin: 0 auto;
         }
 
         h1 {
             color: white;
             font-size: 3em;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 0.2em;
         }
 
-        .hearts {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-        }
-
-        .heart {
-            position: absolute;
-            color: #ff007f;
-            animation: float 6s linear infinite;
-            opacity: 0;
-        }
-
-        .roses {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-        }
-
-        .rose {
-            position: absolute;
-            width: 50px;
-            animation: fall 8s linear infinite;
-            opacity: 0.7;
-        }
-
-        button {
-            padding: 15px 30px;
-            font-size: 1.5em;
-            background: white;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            margin: 20px;
-            transition: transform 0.3s;
-        }
-
-        button:hover {
-            transform: scale(1.1);
-            background: #ffe6f2;
+        p {
+            color: white;
+            font-size: 1.2em;
+            margin: 0.5em 0;
         }
 
         #message {
@@ -80,6 +47,47 @@
             color: white;
             font-size: 2em;
             margin-top: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ------------------------------
+       BUTTON STYLES
+    --------------------------------*/
+        button {
+            padding: 15px 30px;
+            font-size: 1.3em;
+            background: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.3s;
+            box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.15);
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            background: #ffe6f2;
+        }
+
+        /* ------------------------------
+       HEARTS ANIMATION
+    --------------------------------*/
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            color: #ff007f;
+            animation: float 6s linear infinite;
+            opacity: 0;
         }
 
         @keyframes float {
@@ -98,6 +106,25 @@
             }
         }
 
+        /* ------------------------------
+       ROSES ANIMATION
+    --------------------------------*/
+        .roses {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .rose {
+            position: absolute;
+            width: 50px;
+            animation: fall 8s linear infinite;
+            opacity: 0.7;
+        }
+
         @keyframes fall {
             0% {
                 transform: translateY(-100vh) rotate(0deg);
@@ -107,24 +134,196 @@
                 transform: translateY(100vh) rotate(360deg);
             }
         }
+
+        /* ------------------------------
+       FIREWORKS & SPARKLES
+    --------------------------------*/
+        .fireworks {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+            z-index: 999;
+        }
+
+        .firework {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 3px;
+            animation: explode 1.5s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: gold;
+            border-radius: 50%;
+            animation: sparkle 1s ease-out;
+            z-index: 9999;
+        }
+
+        @keyframes sparkle {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+
+        /* ------------------------------
+       LOVE LETTER POPUP
+    --------------------------------*/
+        .love-letter {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: rgba(106, 0, 255, 0.95);
+            color: aliceblue;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            animation: letterPopUp 1s 1s ease-out forwards;
+            z-index: 1000;
+        }
+
+        @keyframes letterPopUp {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+            }
+
+            80% {
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        /* ------------------------------
+       PHOTO SLIDESHOW
+    --------------------------------*/
+        .photo-slideshow {
+            width: 300px;
+            height: 300px;
+            margin: 20px auto;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            opacity: 0;
+            transform: scale(0);
+            animation: photoAppear 1s 2s ease-out forwards;
+            z-index: 1000;
+        }
+
+        .photo-slideshow img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            animation: slideShow 12s infinite;
+        }
+
+        @keyframes photoAppear {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideShow {
+
+            0%,
+            33% {
+                transform: translateX(0);
+            }
+
+            33.33%,
+            66% {
+                transform: translateX(-100%);
+            }
+
+            66.66%,
+            100% {
+                transform: translateX(-200%);
+            }
+        }
+
+        /* ------------------------------
+       FLOATING LOVE NOTES
+    --------------------------------*/
+        @keyframes floatNote {
+            0% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-120vh);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <!-- Fireworks layer -->
+    <div class="fireworks" id="fireworks"></div>
+
+    <!-- Floating hearts layer -->
     <div class="hearts" id="hearts"></div>
+
+    <!-- Falling roses layer -->
     <div class="roses" id="roses"></div>
 
+    <!-- Main content container -->
     <div class="container">
         <h1>Andrea, Will You Be My Valentine? 💝</h1>
-        <p style="color: white; font-size: 1.2em;">You make every day feel like a fairy tale ✨</p>
+        <p>You're the missing piece to my puzzle 🧩</p>
 
-        <button onclick="showResponse(true)">YES! 💖</button>
-        <button onmouseover="moveNoButton()" onclick="showResponse(false)">No</button>
+        <!-- Buttons -->
+        <button onclick="acceptProposal()" id="yesBtn">YES! 💖</button>
+        <button onmouseover="moveNoButton()" onclick="playHardToGet()" id="noBtn">No... maybe? 😏</button>
 
         <div id="message"></div>
     </div>
 
     <script>
+        /* ------------------------------
+           ORIGINAL HEARTS & ROSES CREATION
+        --------------------------------*/
         function createHearts() {
             const heartsContainer = document.getElementById('hearts');
             for (let i = 0; i < 50; i++) {
@@ -143,6 +342,7 @@
             for (let i = 0; i < 20; i++) {
                 const rose = document.createElement('img');
                 rose.className = 'rose';
+                // Placeholder rose image (replace with your own if you like)
                 rose.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QkE1Q0FFQkE2Q0Y1MTFFNDlBM0FFQTJDRUIwQkE2NjUiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QkE1Q0FFQkI2Q0Y1MTFFNDlBM0FFQTJDRUIwQkE2NjUiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpCQTVDQUVCODZDRjUxMUU0OUEzQUVBMkNFQjBCQTY2NSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpCQTVDQUVCOTZDRjUxMUU0OUEzQUVBMkNFQjBCQTY2NSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PtXh438AAAGnSURBVHja7Jq9SgNBEIa3IhYWNj6Bja0PYKGltZ2Fj2BjqY2FjY0vIFj4BFYq2FhZWFhoYyGCghCJhZAfYhQj5pvdZDYcjnfJ3V6yyQcD2d3L7XyzM7N7m0RRlCqTUpLKpAohhBASnxB1+6Bpms3Yh5qmqQ2lHvKQhzy0V4hO3H6/3wV6wDnQcM7fAefABdCJ+6JjHvKQh/YGYYhT4BmYAVPgDZgDH8ASWALfwDtw5V5jHvKQh/YCYYhT4AmYAx/ALfAJfAFfwAKI3N8pcOteYx7ykIf2AmGII+AB+AZegSfgFlgBS+ANWABr4B64d68xD3nIQ3uBMMQR8Ah8AWvgHlgDS2AJfAILYAO8APfuNeYhD3loLxCGOAYmwDewAV6ADbAElsA3sAD+3GvMQx7y0F4gDHEKPAJz4B/wAPwAS2AJfAML4M+9xjzkIQ/tBcIQp8AD8Av8AXfAH7AElsA3sAD+3WvMQx7y0F4gDHEGPAO/wBq4A/6BJbAENsAS+AWegRf3GvOQhzy0FwhDnAPPwCewAm6BP2AJLIENsAT+gRfg1b3GPOQhD+0FwhAXwCvwA6yAG+APWAJLYAOsgA3wBry715iHPOShvUAY4gJ4A1bAGrgGfoElsATWwBr4Bt6Bd/ca85CHPLQXCENcAh/AGlgC18AvsASWwAZYAt/AB/DpXmMe8pCH9gJhiCvgC1gDS+Aa+AWWwBLYACvgB/h0rzEPechDe4EwxDXwDayBJXAN/AJLYAlsXfQNfLrXmIc85KG9QBjiBvgC1sASuAb+gSWwBDbACtgA7+415iEPeWgvEIa4Bb6BNbAEroF/YAksgQ2wAjbAu3uNeWg3if4FGACVKvZkg4Sx1AAAAABJRU5ErkJggg==';
                 rose.style.left = Math.random() * 100 + '%';
                 rose.style.animationDelay = Math.random() * 5 + 's';
@@ -150,25 +350,139 @@
             }
         }
 
-        function showResponse(yes) {
-            const message = document.getElementById('message');
-            if (yes) {
-                message.innerHTML = "Yay! 💖 You've made me the happiest person! 🌹<br>I love you more than words can say!";
-                document.body.style.background = '#ff1493';
-            } else {
-                message.innerHTML = "Try again 😉 You know you want to say Yes! 💘";
+        /* ------------------------------
+           FIREWORKS & SPARKLES CREATION
+        --------------------------------*/
+        function createFireworks(x, y) {
+            const colors = ['#ff0066', '#ff1493', '#ff69b4', '#ffffff'];
+            const fireworksContainer = document.getElementById('fireworks');
+
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'firework';
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+
+                // Random direction and velocity
+                const velocity = 3 + Math.random() * 5;
+                const angle = (Math.random() * 360) * Math.PI / 180;
+                // Move outward from the center
+                particle.style.transform = `translate(${Math.cos(angle) * velocity}rem, ${Math.sin(angle) * velocity}rem)`;
+                fireworksContainer.appendChild(particle);
+
+                // Remove after explosion animation
+                setTimeout(() => particle.remove(), 1500);
             }
-            message.style.display = 'block';
         }
 
+        function createSparkles(element) {
+            const rect = element.getBoundingClientRect();
+            for (let i = 0; i < 10; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = rect.left + rect.width / 2 + Math.random() * 40 - 20 + 'px';
+                sparkle.style.top = rect.top + rect.height / 2 + Math.random() * 40 - 20 + 'px';
+                document.body.appendChild(sparkle);
+                setTimeout(() => sparkle.remove(), 1000);
+            }
+        }
+
+        /* ------------------------------
+           BUTTON INTERACTIONS
+        --------------------------------*/
         function moveNoButton() {
-            const noButton = document.querySelector('button:nth-child(2)');
-            noButton.style.position = 'absolute';
-            noButton.style.left = Math.random() * 80 + '%';
-            noButton.style.top = Math.random() * 80 + '%';
+            const noBtn = document.getElementById('noBtn');
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = Math.random() * 80 + '%';
+            noBtn.style.top = Math.random() * 80 + '%';
+            noBtn.style.transition = 'all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)';
         }
 
-        // Initialize animations
+        function playHardToGet() {
+            const noBtn = document.getElementById('noBtn');
+            const responses = ["Nope!", "Not a chance!", "Haha no!", "Try again!", "Yes? 🤔"];
+            noBtn.textContent = responses[Math.floor(Math.random() * responses.length)];
+
+            noBtn.style.transform = `rotate(${Math.random() * 20 - 10}deg) scale(${0.8 + Math.random() * 0.4})`;
+            moveNoButton();
+            createSparkles(noBtn);
+        }
+
+        /* ------------------------------
+           ACCEPTING THE PROPOSAL
+        --------------------------------*/
+        function acceptProposal() {
+            // Display message
+            const message = document.getElementById('message');
+            message.innerHTML = "Yay! 💖 You've made me the happiest person! 🌹<br>I love you more than words can say!";
+            message.style.display = 'block';
+
+            // Change background
+            document.body.style.background = '#ff1493';
+
+            // Hide the buttons
+            document.getElementById('yesBtn').style.display = 'none';
+            document.getElementById('noBtn').style.display = 'none';
+
+            // Fireworks + sparkles at YES button
+            const yesBtn = document.getElementById('yesBtn');
+            const rect = yesBtn.getBoundingClientRect();
+            createFireworks(rect.left + rect.width / 2, rect.top + rect.height / 2);
+            createSparkles(yesBtn);
+
+            // Show love letter after short delay
+            setTimeout(() => {
+                const letter = document.createElement('div');
+                letter.className = 'love-letter';
+                letter.innerHTML = `
+          <h2>To My Dearest Andrea 🌹</h2>
+          <p>
+            From the moment I met you,<br>
+            My heart knew it was true.<br>
+            Your smile lights up my world,<br>
+            Around you, my happiness swirls.
+          </p>
+          <p>
+            Will you be my Valentine?<br>
+            Forever yours, and you'll be mine 💘
+          </p>
+        `;
+                document.body.appendChild(letter);
+            }, 1000);
+
+            // Photo slideshow (replace placeholders with your real images)
+            setTimeout(() => {
+                const slideshow = document.createElement('div');
+                slideshow.className = 'photo-slideshow';
+                slideshow.innerHTML = `
+          <img src="photo1.jpg" alt="Memory 1" />
+          <img src="photo2.jpg" alt="Memory 2" />
+          <img src="photo3.jpg" alt="Memory 3" />
+        `;
+                document.body.appendChild(slideshow);
+            }, 2000);
+
+
+            // Create floating love notes periodically
+            setInterval(() => {
+                const notes = ["I adore you", "You're perfect", "My soulmate", "Forever yours", "Love you forever!"];
+                const note = document.createElement('div');
+                note.textContent = notes[Math.floor(Math.random() * notes.length)];
+                note.style.position = 'fixed';
+                note.style.color = '#ff0066';
+                note.style.fontSize = '1.5rem';
+                note.style.left = Math.random() * 80 + '%';
+                note.style.bottom = '-50px';
+                note.style.animation = `floatNote 8s ease-out`;
+                document.body.appendChild(note);
+                setTimeout(() => note.remove(), 8000);
+            }, 3000);
+        }
+
+        /* ------------------------------
+           INITIALIZE EVERYTHING
+        --------------------------------*/
         createHearts();
         createRoses();
     </script>
